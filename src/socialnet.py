@@ -15,8 +15,8 @@ propagação de um rumor
 import scipy, scipy.integrate
 
 # Parâmetros
-l = 1.
-alpha = .1
+l = 0.75
+alpha = .01
 k = 4.
 p = 0.5
 
@@ -37,22 +37,22 @@ T = scipy.linspace(0, tMax, 1001)
 
 def rhs(Y, t, l, alpha, k):
     '''
-    Modelo SIR com natalidade e morte.
-    
+    Modelo de propagação de rumores: Gonçlves, et al.
+
     Aqui temos o lado direto das EDO's.
     '''
-    
+
     i = Y[0]
     ro = Y[1]
     r = Y[2]
-    
+
     N = i + ro + r
-    
+
     # EDO's -- lados direitos
     di = - l*p*k*ro*i - (1. - p)*l*k*ro*i
     dro = l*p*k*ro*i / N - alpha*k*ro*(ro + r)
     dr = alpha*k*ro*(ro + r) + (1. - p)*l*k*ro*i
-    
+
     # vetor de saida contendo todas as solucoes
     dY = [ di, dro, dr ]
 
@@ -66,7 +66,7 @@ solution = scipy.integrate.odeint(rhs,
                                   Y0,
                                   T,
                                   args = (l, alpha, k))
-        
+
 i = solution[:, 0]
 ro = solution[:, 1]
 r = solution[:, 2]

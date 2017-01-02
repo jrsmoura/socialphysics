@@ -14,7 +14,7 @@ import scipy, scipy.integrate
 # Parametros
 beta = 5
 gamma = 1
-mu = 1.0 / 50  
+mu = 1.0 / 50
 
 # condicoes iniciais
 S0 = 0.99
@@ -34,21 +34,27 @@ T = scipy.linspace(0, tMax, 1001)
 def rhs(Y, t, beta, gamma, mu):
     '''
     Modelo SIR.
-    
+
     Aqui temos o lado direto das EDO's.
     '''
-    
+
     S = Y[0]
     I = Y[1]
     R = Y[2]
-    
+
     N = S + I + R
-    
+
     # EDO's -- lados direitos
+    # Alessandra, pegue cada uma dessas 3 equações abaixo
+    # e escreva na forma direta, falo como trabalhamos analiticamente.
+    # Isso serve para você como e o que precisa alterar para cada um dos
+    # modelos. Se você enxergar isso, verá que é muito simples e não
+    # terá dificuldade aluma com os outros modelos.
+    
     dS = mu * N - beta * I * S / N - mu * S
     dI = beta * I * S / N - (gamma + mu) * I
     dR = gamma * I - mu * R
-    
+
     # vetor de saida contendo todas as solucoes
     dY = [ dS, dI, dR ]
 
@@ -62,7 +68,7 @@ solution = scipy.integrate.odeint(rhs,
                                   Y0,
                                   T,
                                   args = (beta, gamma, mu))
-        
+
 S = solution[:, 0]
 I = solution[:, 1]
 R = solution[:, 2]
