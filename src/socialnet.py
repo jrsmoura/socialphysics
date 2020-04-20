@@ -27,7 +27,7 @@ r0 = 0.00
 
 Y0 = [ i0, ro0, r0 ]
 
-tMax = 5
+tMax = 360
 
 # vetor tempo ==> para a solução numérica
 T = scipy.linspace(0, tMax, 1001)

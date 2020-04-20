@@ -9,8 +9,8 @@ import random
 
 #Condições iniciais
 
-S = 1000    #sucetíveis
-I = 1       #infectado
+S = 1000000    #sucetíveis
+I = 5       #infectado
 R = 0       #recuperado
 
 #Número total de indivíduos
@@ -21,10 +21,10 @@ t = 0
 
 
 #Probabilidade de infecção
-beta = .08
+beta = .58
 
 # probabilidade de o indivíduo se recuperar
-gamma = .01
+gamma = .1
 
 
 sList = []      # armazena os indivíduos sucetíveis
@@ -36,28 +36,28 @@ random.seed()
 
 # Faremos um loop até que não reste nenhum infectuoso
 while I > 0:
-    newI = 0    
+    newI = 0
     for i in range(S):
         if random.random() < beta*(I/N):
             newI += 1
-            
+
     recoverI = 0
     for i in range(I):
         if random.random() < gamma:
             recoverI += 1
-        
+
     S -= newI
     I += (newI - recoverI)
     R += recoverI
-    
+
     sList.append(S)
     iList.append(I)
     rList.append(R)
     newIList.append(newI)
-    
+
     print('t', t)
     t += 1
-    
+
 import pylab as pl
 pl.figure()
 pl.xlabel('Sucetiveis')
